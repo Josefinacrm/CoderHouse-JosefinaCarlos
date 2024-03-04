@@ -1,8 +1,9 @@
 import requests
 import redshift_connector as rc
 import pandas as pd
+import bcrypt
 
-def obtener_informacion_inflacion(url, cursor, conexion_redshift):
+def obtener_informacion_inflacion(url, conexion_redshift):
     # Solicitar información a la API Pública
     response = requests.get(url)
 
@@ -24,36 +25,39 @@ def obtener_informacion_inflacion(url, cursor, conexion_redshift):
         print(df)
 
         # Insertar los datos en Redshift
-        df.to_sql('indicator_data', conexion_redshift, if_exists='append', index=False)
+        try:
+            df.to_sql('indicator_data', conexion_redshift, if_exists='append', index=False)
+            print("Datos insertados en Redshift correctamente.")
+        except rc.DatabaseError as e:
+            print(f"Error al insertar datos en Redshift: {e}")
 
     else:
         print(f"Error al obtener datos de la API. Código de estado: {response.status_code}")
 
 def main():
-    print("SegundaEntrega")
+    print("TerceraEntrega")
     # Conectarse a Redshift 
-    try: # Evitamos que el programa crashee en caso de una conexion fallida
-
+    try:
         # Configuración Redshift
         redshift_params = {
             'host': 'data-engineer-cluster.cyhh5bfevlmn.us-east-1.redshift.amazonaws.com',
             'database': 'data-engineer-database',
             'port': '5439',
             'user': 'josefina24carlos_coderhouse', 
-            'password': 'Wlh1OQ34ir'
+            'password': '$2b$12$uOEL1dFWJp0UTo0OKtPMOuWjqH2hPJed2VWUENnhl7P07rQ4C4QZC' # Contraseña encriptada
         } 
 
         # Crear un cursor
         conexion_redshift = rc.connect(**redshift_params)
-
+        
         # Llamar a la función para obtener datos de la API
         url = 'https://www.alphavantage.co/query?function=INFLATION&apikey=F2FT4DJMFABFKRQC' 
-        obtener_informacion_inflacion(url, None, conexion_redshift)
+        obtener_informacion_inflacion(url, conexion_redshift)
 
         # Cerrar la conexión
         conexion_redshift.close()
     except Exception as e:
-        print(f"Error al conectar a Redshift: {e}") # imprimir error si conexion falla
+        print(f"Error al conectar a Redshift: {e}")
 
 if __name__ == "__main__":
     main()
