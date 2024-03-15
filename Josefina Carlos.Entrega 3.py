@@ -3,6 +3,8 @@ import redshift_connector as rc
 import pandas as pd
 import bcrypt
 
+
+
 def obtener_informacion_inflacion(url, conexion_redshift):
     # Solicitar información a la API Pública
     response = requests.get(url)
