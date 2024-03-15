@@ -1,5 +1,6 @@
 import requests
 import redshift_connector as rc
+import pandas as pd 
 
 def obtener_informacion_inflacion(url, cursor, conexion_redshift):
     # Solicitar información a la API Pública
@@ -10,22 +11,27 @@ def obtener_informacion_inflacion(url, cursor, conexion_redshift):
         # Convertir la respuesta a formato JSON
         data = response.json()
 
+        # Crear un DataFrame de Pandas para manipular los datos 
+        df = pd.DataFrame(data['data'])
+        df['name'] = data['name']
+        df['interval'] = data['interval']
+        df['unit'] = data['unit']
+
+        # Eliminar duplicados si existen  
+        df.drop_duplicates(inplace=True)
+
         # Imprimir la información
-        print(f"Nombre: {data['name']}")
-        print(f"Intervalo de tiempo: {data['interval']}")
-        print(f"Porcentaje: {data['unit']}")
+        #print(df)
 
-        # Guardo la data obtenida en un arreglo
-        data_array = data['data']
-
+        # Insertar datos en tabla
         query_insercion = '''
             INSERT INTO indicator_data (name, interval, unit, date, value)
             VALUES '''
 
-        for data_val in data_array:
-            # Genero una nueva entrada para cada valor obtenido
+        for index, row in df.iterrows():
+            # Generar una nueva entrada para cada fila del DataFrame
             indicator_data_string = "('{0}', '{1}', '{2}', '{3}', {4}),".format(
-                data['name'], data['interval'], data['unit'], data_val['date'], data_val['value']
+                row['name'], row['interval'], row['unit'], row['date'], row['value']
             )
             query_insercion += indicator_data_string
         
@@ -36,11 +42,12 @@ def obtener_informacion_inflacion(url, cursor, conexion_redshift):
         # Ejecuto la sentencia
         cursor.execute(query_insercion)
         conexion_redshift.commit()
+        
     else:
         print(f"Error al obtener datos de la API. Código de estado: {response.status_code}")
 
 def main():
-    print("SegundaEntrega")
+    print("-------- Entrega Final --------")
     # Conectarse a Redshift 
     try: # Evitamos que el programa crashee en caso de una conexion fallida
 
