@@ -1,0 +1,76 @@
+airflow-1  | 
+airflow-1  | 
+airflow-1  | airflow command error: the following arguments are required: GROUP_OR_COMMAND, see help above.
+airflow-1  | Usage: airflow [-h] GROUP_OR_COMMAND ...
+airflow-1  | 
+airflow-1  | Positional Arguments:
+airflow-1  |   GROUP_OR_COMMAND
+airflow-1  | 
+airflow-1  |     Groups
+airflow-1  |       config         View configuration
+airflow-1  |       connections    Manage connections
+airflow-1  |       dags           Manage DAGs
+airflow-1  |       db             Database operations
+airflow-1  |       jobs           Manage jobs
+airflow-1  |       pools          Manage pools
+airflow-1  |       providers      Display providers
+airflow-1  |       roles          Manage roles
+airflow-1  |       tasks          Manage tasks
+airflow-1  |       users          Manage users
+airflow-1  |       variables      Manage variables
+airflow-1  | 
+airflow-1  |     Commands:
+airflow-1  |       cheat-sheet    Display cheat sheet
+airflow-1  |       dag-processor  Start a standalone Dag Processor instance
+airflow-1  |       info           Show information about current Airflow and environment
+airflow-1  |       kerberos       Start a kerberos ticket renewer
+airflow-1  |       plugins        Dump information about loaded plugins
+airflow-1  |       rotate-fernet-key
+airflow-1  |                      Rotate encrypted connection credentials and variables
+airflow-1  |       scheduler      Start a scheduler instance
+airflow-1  |       standalone     Run an all-in-one copy of Airflow
+airflow-1  |       sync-perm      Update permissions for existing roles and optionally DAGs
+airflow-1  |       triggerer      Start a triggerer instance
+airflow-1  |       version        Show the version
+airflow-1  |       webserver      Start a Airflow webserver instance
+airflow-1  | 
+airflow-1  | Optional Arguments:
+airflow-1  |   -h, --help         show this help message and exit
+airflow-1  | 
+airflow-1  | Usage: airflow [-h] GROUP_OR_COMMAND ...
+airflow-1  | 
+airflow-1  | Positional Arguments:
+airflow-1  |   GROUP_OR_COMMAND
+airflow-1  | 
+airflow-1  |     Groups
+airflow-1  |       config         View configuration
+airflow-1  |       connections    Manage connections
+airflow-1  |       dags           Manage DAGs
+airflow-1  |       db             Database operations
+airflow-1  |       jobs           Manage jobs
+airflow-1  |       pools          Manage pools
+airflow-1  |       providers      Display providers
+airflow-1  |       roles          Manage roles
+airflow-1  |       tasks          Manage tasks
+airflow-1  |       users          Manage users
+airflow-1  |       variables      Manage variables
+airflow-1  | 
+airflow-1  |     Commands:
+airflow-1  |       cheat-sheet    Display cheat sheet
+airflow-1  |       dag-processor  Start a standalone Dag Processor instance
+airflow-1  |       info           Show information about current Airflow and environment
+airflow-1  |       kerberos       Start a kerberos ticket renewer
+airflow-1  |       plugins        Dump information about loaded plugins
+airflow-1  |       rotate-fernet-key
+airflow-1  |                      Rotate encrypted connection credentials and variables
+airflow-1  |       scheduler      Start a scheduler instance
+airflow-1  |       standalone     Run an all-in-one copy of Airflow
+airflow-1  |       sync-perm      Update permissions for existing roles and optionally DAGs
+airflow-1  |       triggerer      Start a triggerer instance
+airflow-1  |       version        Show the version
+airflow-1  | 
+airflow-1  | airflow command error: the following arguments are required: GROUP_OR_COMMAND, see help above.
+airflow-1  |       webserver      Start a Airflow webserver instance
+airflow-1  | 
+airflow-1  | Optional Arguments:
+airflow-1  |   -h, --help         show this help message and exit

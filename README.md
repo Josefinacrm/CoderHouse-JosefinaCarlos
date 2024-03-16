@@ -1,15 +1,8 @@
-Explicación del código:
-En el presente repositorio se encuentra la segunda entrega del curso Data Engineering de Coderhouse.
+Trabajo final Data Engineering-Josefina Carlos
+En el presente repositorio se encuentra mi entrega final del curso Data Engineering de Coderhouse.
 La API que se seleccionó es una API a la cual se accede mediante una Key gratuita y que contiene información sobre la inflación en Estados Unidos y como va progresando temporalmente.
 Mediante la ejecución del código en el idioma Python se indica la creación de una tabla (indicator_data) en Redshift, la cual contendrá los datos extraidos de la API.
-
-Pasos-Para entrega 3:
-#Abrir terminal docker build -t josefina_carlos_imagen .
-docker image ls
-docker run josefina_carlos_imagen
-#Abrir otra terminal
-mkdir airflow_docker
-cd airflow_docker
-curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.3.3/docker-compose.yml'
-mkdir -p dags logs plugins
-docker-compose up
+A través la utilización de un dockerfile se corre en la terminal la función docker-compose up, la cuál llama al archivo .yaml que contiene las imágenes apache/airflow:2.8.3 para Airflow y la imagen tomcat:9.0 la cuál es compatible con la arquitectura de mi computadora. La finalidad del uso de docker es permitir utilizar contenedores, en base a la imagen, que utilicen los recursos del equipo pero en un entorno aislado.
+También nos encontramos en el siguiente repositorio los siguientes archivos: logs que hacen referencia a Airflow, las sentencias de creación de la tabla en Redshift en archivo .sql, los tipos de archivo que deberían ser ignorados y un archivo .py con la finalidad de encriptar las credenciales.
+Por último, se incluye un archivo ipynb que hace referencia a notebook Jupyter, el cuál contendrá el código en Python y permitirá su ejecución, y experimentación, por sectores.
+Quiero agradecer a todo el equipo de CoderHouse por su guía a lo largo del curso. Si bien existían muchos conceptos que desconocía y que fui adoptando, sus correcciones permitieron que terminara el curso con muchos conocimientos nuevos. 

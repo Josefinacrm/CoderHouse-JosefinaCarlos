@@ -1,31 +1,16 @@
-version: '2.1'
+version: '3'
+
 services:
-  postgres:
-    image: postgres:9.6
-
-  redis:
-    image: redis:5.0.5
-
-  webserver:
-    image: apache/airflow:2.0.1
-    restart: always
-    depends_on:
-      - postgres
-      - redis
+  airflow:
+    image: apache/airflow:2.8.3
     ports:
       - "8080:8080"
-    command: webserver
+    volumes:
+      - ./Documents/Projects/CoderHouse/dags/entrega-final.py:/usr/local/airflow/dags/entrega-final.py
 
-  scheduler:
-    image: apache/airflow:2.0.1
-    restart: always
+  my-code:
+    build:
+      context: .
+      dockerfile: Dockerfile
     depends_on:
-      - webserver
-    command: scheduler
-
-  worker:
-    image: apache/airflow:2.0.1
-    restart: always
-    depends_on:
-      - scheduler
-    command: celery worker
+      - airflow

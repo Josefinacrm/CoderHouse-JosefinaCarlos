@@ -1,0 +1,26 @@
+# Archivos de caché y temporales generados por Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Directorio de entorno virtual de Python (si lo utilizas)
+venv/
+env/
+ENV/
+
+# Archivos generados por Redshift
+*.bak
+
+# Archivos de registro
+*.log
+
+# Archivos de configuración local que pueden variar entre entornos
+config.ini
+.env
+
+# Carpeta donde se almacenan los datos descargados de la API
+data/
+
+# Archivo de configuración de las credenciales de conexión a Redshift
+redshift_credentials.json
