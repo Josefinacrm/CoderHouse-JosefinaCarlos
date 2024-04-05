@@ -18,7 +18,7 @@ default_args = {
 inflation_dag = DAG(
     dag_id='inflation_dag',
     default_args=default_args,
-    description='Agrega datos de la inflación de eeuu',
+    description='Agrega datos de la inflacion de eeuu',
     schedule_interval=timedelta(days=1),
     catchup=False
 )
