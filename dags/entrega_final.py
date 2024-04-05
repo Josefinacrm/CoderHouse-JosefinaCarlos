@@ -1,9 +1,14 @@
 import requests
 import redshift_connector as rc
 import pandas as pd 
+from airflow.models import Variable, DAG 
+import datetime
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 def obtener_informacion_inflacion(url, cursor, conexion_redshift):
-    # Solicitar información a la API Pública
+    # Solicitar información a la API 
     response = requests.get(url)
 
     # Verificar si la solicitud fue correcta
@@ -56,8 +61,8 @@ def main():
             'host': 'data-engineer-cluster.cyhh5bfevlmn.us-east-1.redshift.amazonaws.com',
             'database': 'data-engineer-database',
             'port': '5439',
-            'user': 'josefina24carlos_coderhouse', 
-            'password': 'Wlh1OQ34ir'
+            'user': Variable.get("user_redshift"),
+            'password': Variable.get("secret_pass_redshift")
         } # Verificar conexion. 
 
         # Crear un cursor
@@ -79,7 +84,7 @@ def main():
         conexion_redshift.commit()
 
         # Llamar a la función para obtener datos de la API
-        url = 'https://www.alphavantage.co/query?function=INFLATION&apikey=F2FT4DJMFABFKRQC' 
+        url = 'https://www.alphavantage.co/query?function=INFLATION&apikey=' + Variable.get("alpha_vantage_api_key")
         obtener_informacion_inflacion(url, cursor, conexion_redshift)
 
         # Cerrar la conexión
@@ -87,5 +92,33 @@ def main():
         conexion_redshift.close()
     except Exception as e:
         print(f"Error al conectar a Redshift: {e}") # imprimir error si conexion falla
+
+def send_email():
+    try:
+        Pass_Email = Variable.get("secret_pass_gmail")
+        smtp_server = 'smtp.gmail.com'
+        smtp_port = 587
+        sender_email = 'josefinacarlosfotografia@gmail.com'
+        password = Pass_Email
+
+        subject = 'Carga de datos'
+        body_text = 'Los datos fueron cargados a la base de datos correctamente.'
+
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['To'] = sender_email
+        msg['Subject'] = subject
+        msg.attach(MIMEText(body_text, 'plain'))
+        
+        with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.starttls()
+            server.login(sender_email, password)
+            server.send_message(msg)
+        
+        print('El email fue enviado correctamente.')
+
+    except Exception as exception:
+        print(exception)
+        print('El email no se pudo enviar.')
 
 main()
